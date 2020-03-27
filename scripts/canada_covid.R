@@ -4,9 +4,9 @@ if (!exists("setup_sourced")) source(here::here("scripts", "setup.R"))
 #-----------------------------------------------------------
 
 # load confirmed cases
-confirmed <- fread(here::here("csse_covid_19_data", "csse_covid_19_time_series", "time_series_19-covid-Confirmed.csv")) 
-death <- fread(here::here("csse_covid_19_data", "csse_covid_19_time_series", "time_series_19-covid-Deaths.csv"))
-recovered <- fread(here::here("csse_covid_19_data", "csse_covid_19_time_series", "time_series_19-covid-Recovered.csv"))
+confirmed <- fread(here::here("csse_covid_19_data", "csse_covid_19_time_series", "time_series_covid19_confirmed_global.csv")) 
+death <- fread(here::here("csse_covid_19_data", "csse_covid_19_time_series", "time_series_covid19_deaths_global.csv"))
+recovered <- fread(here::here("csse_covid_19_data", "csse_covid_19_time_series", "time_series_covid19_recovered_global.csv"))
 
 #-----------------------------------------------------------
 
@@ -43,7 +43,9 @@ combinedc_cleanup <- combinedc[,c(1:3, 6, 9)]
 
 # make data to visualize
 combinedc_cleanups <- combinedc_cleanup %>%
+  filter(!Province == "Diamond Princess") %>%
   filter(!Province == "Grand Princess") %>%
+  filter(!Province == "Recovered") %>%
   mutate(death_counts = case_when(death_counts == "1" ~ "Yes",
                                   TRUE ~ "No")) %>%
   mutate(week_in_2020 = week(date)) 
@@ -56,12 +58,12 @@ combinedc_cleanups %>%
   geom_point(aes(), 
              shape = 23, alpha = 0.5) +
   scale_fill_manual(values = c("azure3", "magenta4")) +
-  labs(title="COVID-19 observations in Canada until March 21, 2020", 
+  labs(title="COVID-19 observations in Canada until March 27, 2020", 
        subtitle = "Date source: CSSEGISandData/COVID-19",
        caption = "@nabavinoushin",
        x="Time", y = "Count",
        fill = "Deaths?", size = "Recovered counts") +
-  facet_wrap(~Province)
+  facet_wrap(~Province, scales = "free")
 
 ggsave("covid19_canada.png")
 
