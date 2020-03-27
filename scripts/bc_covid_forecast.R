@@ -4,9 +4,9 @@ if (!exists("setup_sourced")) source(here::here("setup.R"))
 #-----------------------------------------------------------
 
 # load confirmed cases
-confirmed <- fread(here::here("csse_covid_19_data", "csse_covid_19_time_series", "time_series_19-covid-Confirmed.csv")) 
-death <- fread(here::here("csse_covid_19_data", "csse_covid_19_time_series", "time_series_19-covid-Deaths.csv"))
-recovered <- fread(here::here("csse_covid_19_data", "csse_covid_19_time_series", "time_series_19-covid-Recovered.csv"))
+confirmed <- fread(here::here("csse_covid_19_data", "csse_covid_19_time_series", "time_series_covid19_confirmed_global.csv")) 
+death <- fread(here::here("csse_covid_19_data", "csse_covid_19_time_series", "time_series_covid19_deaths_global.csv"))
+recovered <- fread(here::here("csse_covid_19_data", "csse_covid_19_time_series", "time_series_covid19_recovered_global.csv"))
 
 #-----------------------------------------------------------
 

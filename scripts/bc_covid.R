@@ -4,7 +4,7 @@ if (!exists("setup_sourced")) source(here::here("scripts", "setup.R"))
 #-----------------------------------------------------------
 
 # load confirmed cases
-confirmed <- fread(here::here("csse_covid_19_data", "csse_covid_19_time_series", "time_series_19-covid-Confirmed.csv")) 
+confirmed <- fread(here::here("csse_covid_19_data", "csse_covid_19_time_series", "time_series_covid19_confirmed_global.csv")) 
 
 drop_columns <- c("Country/Region", "Lat", "Long")
 cc1 <- confirmed %>%
@@ -23,8 +23,8 @@ ggsave("confirmed_cases.png")
 
 
 # load deaths 
-death <- fread(here::here("csse_covid_19_data", "csse_covid_19_time_series", "time_series_19-covid-Deaths.csv"))
- 
+death <- fread(here::here("csse_covid_19_data", "csse_covid_19_time_series", "time_series_covid19_deaths_global.csv"))
+
 drop_columns <- c("Country/Region", "Lat", "Long")
 
 dc1 <- death %>%
@@ -44,7 +44,7 @@ dc1 <- death %>%
 ggsave("death_cases.png")
 
 # load recovered cases 
-recovered <- fread(here::here("csse_covid_19_data", "csse_covid_19_time_series", "time_series_19-covid-Recovered.csv"))
+recovered <- fread(here::here("csse_covid_19_data", "csse_covid_19_time_series", "time_series_covid19_recovered_global.csv"))
 
 rc1 <- recovered %>%
   select(-one_of(drop_columns)) %>%
