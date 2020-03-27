@@ -1,3 +1,8 @@
+# declare dependencies
+if (!exists("setup_sourced")) source(here::here("scripts", "setup.R"))
+
+#-----------------------------------------------------------
+
 # install package
 devtools::install_github("kenarab/COVID19", build_opts = NULL)
 
@@ -12,7 +17,7 @@ library(ggplot2)
 library(gridExtra)
 library(magrittr)
 
-
+#-----------------------------------------------------------
 data.processor <- COVID19DataProcessor$new(force.download = FALSE)
 data.processor$curate()
 
