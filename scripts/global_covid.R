@@ -69,7 +69,7 @@ mapview(as(global_sf, "Spatial"))
 ggplot(data = global_sf) +
   geom_sf(aes(fill = count)) +
   scale_fill_viridis_c(option = "plasma", trans = "sqrt") +
-  labs(title="Global Coronavirus confirmed cases as of March 16, 2020", 
+  labs(title="Global Coronavirus confirmed cases as of March 21, 2020", 
        subtitle = "Date source: CSSEGISandData/COVID-19",
        caption = "@nabavinoushin")
 
