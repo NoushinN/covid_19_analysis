@@ -10,6 +10,31 @@ recovered <- fread(here::here("csse_covid_19_data", "csse_covid_19_time_series",
 
 #-----------------------------------------------------------
 
+# make a dataframe for all of Canada
+drop_columns <- c("Province/State", "Lat", "Long")
+
+ccc <- confirmed %>%
+  select(-one_of(drop_columns)) %>%
+  pivot_longer(-`Country/Region`, names_to = "date", values_to = "confirmed_counts") %>%
+  mutate(date = mdy(date)) %>%
+  rename(Country = `Country/Region`) %>%
+  filter(date == "2020-03-07") %>%
+  distinct(Country, .keep_all = TRUE) %>%
+  top_n(10, confirmed_counts)
+
+# Visualize top 10 countries with confirmed cases
+options(scipen=999)
+
+ggplot(ccc, aes(x=Country, y=confirmed_counts)) + 
+  geom_point(aes(col=Country, size=confirmed_counts)) + 
+  geom_smooth(method="loess", se=F) + 
+  labs(subtitle="Count of confirmed cases", 
+       y="Countries", 
+       x="Counts", 
+       title="Data release on March 07, 2020", 
+       caption = "Source: JHU CSSE")
+
+#-----------------------------------------------------------
 # extract lat/longs
 latts <- confirmed %>%
   distinct(`Country/Region`, .keep_all = TRUE) %>%

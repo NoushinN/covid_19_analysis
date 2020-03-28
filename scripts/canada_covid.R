@@ -74,15 +74,19 @@ canada <- combinedc_cleanup %>%
   mutate(week_in_2020 = week(date)) %>%
   mutate(Province = as.factor(Province))
 
-canada$Province[119:177] <-"Alberta"                                            
-canada$Province[1:59] <-"British Columbia / Colombie-Britannique"            
-canada$Province[296:354] <-"Manitoba"                                           
-canada$Province[237:295] <-"New Brunswick / Nouveau-Brunswick"                  
-canada$Province[473:531] <-"Newfoundland and Labrador / Terre-Neuve-et-Labrador"
-canada$Province[591:649] <-"Nova Scotia / Nouvelle-Écosse"                      
-canada$Province[60:118] <-"Ontario"                                            
-canada$Province[178:236] <-"Quebec / Québec"                                    
-canada$Province[355:413] <-"Saskatchewan"                                       
+canada$Province[1:65] <-"Alberta"                                            
+canada$Province[66:130] <-"British Columbia / Colombie-Britannique"            
+canada$Province[196:260] <-"Manitoba"                                           
+canada$Province[261:325] <-"New Brunswick / Nouveau-Brunswick"                  
+canada$Province[326:390] <-"Newfoundland and Labrador / Terre-Neuve-et-Labrador"
+canada$Province[391:455] <-"Nova Scotia / Nouvelle-Écosse"                      
+canada$Province[456:520] <-"Ontario"    
+canada$Province[521:585] <-"Prince Edward Island"                                       
+canada$Province[586:650] <-"Quebec / Québec"                                    
+canada$Province[651:715] <-"Saskatchewan"  
+canada$Province[846:910] <-"Northwest Territories"                                       
+canada$Province[911:975] <-"Yukon"                                       
+
 
 
 library(maps)
@@ -117,7 +121,6 @@ canada_map <- sf::st_read("/Users/noushinnabavi/covid_19_analysis/polygons/lct_0
   rename(Province = PRNAME)
 
 class(canada_map)
-plot(canada_map)
 
 x <- factor(canada_map$Province)
 levels(x)
@@ -127,7 +130,6 @@ canada_geom <- inner_join(canada, canada_map, by = "Province") %>%
   st_sf()
 
 class(canada_geom)
-plot(canada_geom)
 
 # use ggplot to plot data
 ggplot(canada_geom) +
