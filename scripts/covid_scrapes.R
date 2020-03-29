@@ -7,7 +7,9 @@ require(dplyr,httr)
 canada_data <- content(GET("https://covid19tracker.ca/dist/api/controller/cases.php"))$individualCases %>% lapply(as_tibble) %>% bind_rows
 
 
-canada_data_tidy <- 
+canada_data_tidy <- canada_data 
+  
+  
 #-----------------------------------------------------------
 
 # install package
@@ -26,6 +28,7 @@ library(magrittr)
 
 #-----------------------------------------------------------
 
+# COVID19 package is still not functional
 data.processor <- COVID19DataProcessor$new(force.download = FALSE)
 data.processor$curate()
 
@@ -44,7 +47,31 @@ latam.countries <- sort(c("Mexico",
                           data.processor$countries$getCountries(division = "sub.continent", name = "South America")))
 
 
-ggplot <- rg$ggplotTopCountriesStackedBarDailyInc(included.countries = latam.countries,
+
+rg$ggplotTopCountriesStackedBarDailyInc(included.countries = latam.countries,
                                                   map.region = "Latam")
-ggsave(file.path(data.dir, paste("latam-daily-increment-", dataviz.date, ".png", sep ="")), ggplot,
-       width = 7, height = 5, dpi = 300)       
+
+#-----------------------------------------------------------
+
+# Comparation by epidemy day
+countries.plot <- unique(c(data.processor$top.countries,
+                           "Japan", "Singapur", "Hong Kong",
+                           data.processor$countries$getCountries(division = "sub.continent", name = "South America")))
+
+rc$ggplotComparisonExponentialGrowth(included.countries = countries.plot, min.cases = 20)
+
+#-----------------------------------------------------------
+latam.countries <- c("Mexico",
+                     data.processor$countries$getCountries(division = "sub.continent", name = "Caribbean"),
+                     data.processor$countries$getCountries(division = "sub.continent", name = "Central America"),
+                     data.processor$countries$getCountries(division = "sub.continent", name = "South America"))
+
+
+# other plots
+rc$ggplotComparisonExponentialGrowth(included.countries = latam.countries, min.cases = 20)
+rg$ggplotTopCountriesLines(field = "confirmed.inc", log.scale = TRUE)
+rg$ggplotTopCountriesLines(field = "rate.inc.daily", log.scale = FALSE)
+rg$ggplotTopCountriesPie()
+rg$ggplotTopCountriesBarPlots()
+
+
