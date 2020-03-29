@@ -7,9 +7,14 @@ require(dplyr,httr)
 canada_data <- content(GET("https://covid19tracker.ca/dist/api/controller/cases.php"))$individualCases %>% lapply(as_tibble) %>% bind_rows
 
 
-canada_data_tidy <- canada_data 
+canada_data_tidy <- canada_data %>%
+  mutate(date = as.Date(date)) %>%
+  filter(province == "British Columbia") %>%
+  group_by(date) %>%
+  summarise(count = n()) %>%
+  mutate(sum_to_date = sum(count))
   
-  
+
 #-----------------------------------------------------------
 
 # install package

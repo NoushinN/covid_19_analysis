@@ -1,6 +1,6 @@
 # list of libraries
 libraries <- c("tidyverse", "data.table", "here", "table1",
-               "fpp2", "lubridate")
+               "fpp2", "lubridate", "httr")
 
 # load libraries
 lapply(libraries, library, character.only = TRUE)
