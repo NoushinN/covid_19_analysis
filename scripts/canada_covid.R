@@ -134,7 +134,7 @@ class(canada_geom)
 # use ggplot to plot data
 ggplot(canada_geom) +
   geom_sf(aes(fill = confirmed_counts)) + 
-  scale_fill_viridis_c(option = "plasma", trans = "sqrt")
+  scale_fill_viridis_c(option = "plasma", trans = "sqrt") # takes a long time and crashes
 
 #-----------------------------------------------------------
 

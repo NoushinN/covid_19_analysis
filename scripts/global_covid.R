@@ -88,6 +88,7 @@ class(global_sf)
 library(sf)
 library(mapview)
 
+
 mapview(as(global_sf, "Spatial"))
 
 
@@ -100,5 +101,12 @@ ggplot(data = global_sf) +
 
 ggsave("world_map.pdf")
 
+#-----------------------------------------------------------
+# load spatial packages
+library(viridis)
 
-
+ggplot(global_sf) + 
+  geom_sf(aes(fill = count), color = NA) + 
+  coord_sf(datum = NA) + 
+  theme_minimal() + 
+  scale_fill_viridis_c()
