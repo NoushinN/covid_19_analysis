@@ -7,4 +7,5 @@ Disclaimer: This GitHub repo and its contents herein, including all data, mappin
 https://systems.jhu.edu/
 
 
-This analysis uses the instant of data released on March 16th, 2020. The `scripts` are written by Noushin Nabavi to generate the `plots` in this repository. She will take responsibility for any issues with visualizations, please contact her through openning an issue here.
+This analysis uses the instant of data released on March 16th, 2020. The `scripts` are written to generate the `plots` in this repository. 
+Noushin Nabavi will take responsibility for any issues with visualizations, please report any questions by openning an issue in this repo.
